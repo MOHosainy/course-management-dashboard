@@ -1,15 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-course-detail-component',
-//   imports: [],
-//   templateUrl: './course-detail-component.html',
-//   styleUrl: './course-detail-component.scss',
-// })
-// export class CourseDetailComponent {}
-
-
-
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';

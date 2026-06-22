@@ -1,27 +1,10 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-dashboard-component',
-//   imports: [],
-//   templateUrl: './dashboard-component.html',
-//   styleUrl: './dashboard-component.scss',
-// })
-// export class DashboardComponent {}
-
-
-
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-// import { CourseService } from '../../core/services/course.service';
-// import { TableComponent } from '../../shared/components/table/table.component';
-// import { ModalComponent } from '../../shared/components/modal/modal.component';
-// import { CourseFilter, Course } from '../../core/models/course.model';
 import { CourseService } from '../../core/services/course-service';
 import { TableComponent } from '../../shared/components/tables/table-component/table-component';
 import { ModalComponent } from '../../shared/components/model/modal-component/modal-component';
 import { CourseFilter,Course } from '../../core/models/course';
-
 
 
 @Component({
@@ -36,9 +19,13 @@ import { CourseFilter,Course } from '../../core/models/course';
       </div>
 
       <div class="toolbar">
-        <input type="text" placeholder="Search by name or instructor..." (input)="onSearch($event)" />
+        <input 
+          type="text" 
+          [value]="courseService.searchQuery()" 
+          placeholder="Search by name or instructor..." 
+          (input)="onSearch($event)" />
         
-        <select (change)="onFilterChange($event)">
+        <select [value]="courseService.statusFilter()" (change)="onFilterChange($event)">
           <option value="All">All Statuses</option>
           <option value="Active">Active</option>
           <option value="Draft">Draft</option>
@@ -73,11 +60,17 @@ import { CourseFilter,Course } from '../../core/models/course';
     .toolbar select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: white; width: 150px; }
   `]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   isModalOpen = signal(false);
   courseIdToDelete = signal<string | null>(null);
 
   constructor(public courseService: CourseService, private router: Router) {}
+
+  // أول ما الـ Dashboard تفتح، بنصفر الفلاتر عشان يرجع يعرض كل الكورسات بكل الحالات
+  ngOnInit() {
+    this.courseService.statusFilter.set('All');
+    this.courseService.searchQuery.set('');
+  }
 
   onSearch(event: Event) {
     const val = (event.target as HTMLInputElement).value;

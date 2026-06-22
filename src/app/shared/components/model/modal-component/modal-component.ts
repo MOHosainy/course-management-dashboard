@@ -1,12 +1,4 @@
-// import { Component } from '@angular/core';
 
-// @Component({
-//   selector: 'app-modal-component',
-//   imports: [],
-//   templateUrl: './modal-component.html',
-//   styleUrl: './modal-component.scss',
-// })
-// export class ModalComponent {}
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

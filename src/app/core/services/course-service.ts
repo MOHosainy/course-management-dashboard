@@ -1,10 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class CourseService {}
-
 
 import { Injectable, signal, computed } from '@angular/core';
 import { Course, CourseFilter } from '../models/course';

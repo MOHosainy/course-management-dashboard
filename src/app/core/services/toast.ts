@@ -1,9 +1,4 @@
-// import { Injectable } from '@angular/core';
 
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class Toast {}
 
 import { Injectable, signal } from '@angular/core';
 
