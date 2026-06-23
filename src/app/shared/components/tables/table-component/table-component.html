@@ -1,49 +1,59 @@
-<div class="table-container">
-  <table>
-    <thead>
-      <tr>
-        <th (click)="sort('id')">ID ↕</th>
-        <th (click)="sort('name')">Course Name ↕</th>
-        <th (click)="sort('category')">Category ↕</th>
-        <th (click)="sort('instructor')">Instructor ↕</th>
-        <th (click)="sort('price')">Price ↕</th>
-        <th>Duration</th>
-        <th (click)="sort('status')">Status ↕</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (course of paginatedData(); track course.id) {
-        <tr>
-          <td><code class="id-txt">{{ course.id.substring(0, 8) }}...</code></td>
-          <td><strong>{{ course.name }}</strong></td>
-          <td><span class="category-txt">{{ course.category || 'N/A' }}</span></td>
-          <td>{{ course.instructor }}</td>
-          <td><strong>{{ course.price | currency:'USD':'symbol':'1.2-2' }}</strong></td>
-          <td>{{ course.duration }}</td>
-          <td>
-            <span [class]="'badge ' + course.status.toLowerCase()">{{ course.status }}</span>
-          </td>
-          <td>
-            <div class="actions">
-              <button class="btn-view" (click)="onView.emit(course.id)">👁 View</button>
-              <button class="btn-edit" (click)="onEdit.emit(course.id)">✏️ Edit</button>
-              <button class="btn-delete" (click)="onDelete.emit(course.id)">🗑 Delete</button>
+<div class="grid-container">
+  <div class="courses-grid">
+    @for (course of paginatedData(); track course.id) {
+      <div class="course-card">
+        <div class="card-image-placeholder">
+          <span class="badge" [ngClass]="course.status.toLowerCase()">{{ course.status }}</span>
+          <div class="image-overlay">
+            <span class="icon-book">📚</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <div class="card-meta">
+            <span class="category-tag">{{ course.category || 'General' }}</span>
+            <span class="course-id">ID: {{ course.id }}</span>
+          </div>
+          
+          <h3 class="course-title">{{ course.name }}</h3>
+          <p class="course-desc">{{ course.description | slice:0:80 }}...</p>
+          
+          <div class="course-details">
+            <div class="detail-item">
+              <span>👤 {{ course.instructor }}</span>
             </div>
-          </td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="8" style="text-align: center; padding: 20px;">No courses found.</td>
-        </tr>
-      }
-    </tbody>
-  </table>
+            <div class="detail-item">
+              <span>⏱️ {{ course.duration }}</span>
+            </div>
+            <div class="detail-item price">
+              <span>💰 {{ course.price | currency:'USD':'symbol':'1.0-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-action btn-view" (click)="onView.emit(course.id)">
+            👁 View
+          </button>
+          <button class="btn-action btn-edit" (click)="onEdit.emit(course.id)">
+            ✏️ Edit
+          </button>
+          <button class="btn-action btn-delete" (click)="onDelete.emit(course.id)">
+            🗑 Delete
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <p>No courses found matching your criteria.</p>
+      </div>
+    }
+  </div>
 
   @if (totalPages() > 1) {
     <div class="pagination">
       <button [disabled]="currentPage() === 1" (click)="changePage(currentPage() - 1)">Previous</button>
-      <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+      <span class="page-info">Page {{ currentPage() }} of {{ totalPages() }}</span>
       <button [disabled]="currentPage() === totalPages()" (click)="changePage(currentPage() + 1)">Next</button>
     </div>
   }

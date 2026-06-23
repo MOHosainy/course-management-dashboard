@@ -1,5 +1,3 @@
-
-
 import { Component, Input, Output, EventEmitter, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../../../core/models/course';

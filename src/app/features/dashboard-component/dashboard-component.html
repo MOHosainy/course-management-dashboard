@@ -1,31 +1,84 @@
-<div class="dashboard-container">
-  <div class="header">
-    <h1>Course Management Dashboard</h1>
-    <button class="btn-add" (click)="navigateToAdd()">+ Add New Course</button>
-  </div>
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="logo-area">
+      <span class="logo-icon">🎓</span>
+      <h2>EduPlatform</h2>
+    </div>
+    <nav class="menu-links">
+      <a class="nav-item"><span class="icon">🏠</span> Dashboard</a>
+      <a class="nav-item active"><span class="icon">📖</span> Courses</a>
+      <a class="nav-item" (click)="navigateToAdd()"><span class="icon">➕</span> Add Course</a>
+      <a class="nav-item"><span class="icon">👥</span> Users</a>
+      <a class="nav-item"><span class="icon">⚙️</span> Settings</a>
+    </nav>
+    <div class="logout-area">
+      <a class="nav-item logout"><span class="icon">🚪</span> Logout</a>
+    </div>
+  </aside>
 
-  <div class="toolbar">
-    <input 
-      type="text" 
-      [value]="courseService.searchQuery()" 
-      placeholder="Search by name or instructor..." 
-      (input)="onSearch($event)" />
-    
-    <select [value]="courseService.statusFilter()" (change)="onFilterChange($event)">
-      <option value="All">All Statuses</option>
-      <option value="Active">Active</option>
-      <option value="Draft">Draft</option>
-      <option value="Archived">Archived</option>
-    </select>
-  </div>
+  <main class="main-content">
+    <header class="top-header">
+      <div class="search-bar-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          [value]="courseService.searchQuery()" 
+          placeholder="Search for courses..." 
+          (input)="onSearch($event)" />
+      </div>
+      <div class="user-profile">
+        <span class="notifications">🔔<span class="badge-count">3</span></span>
+        <div class="profile-info">
+          <span class="user-name">Sarah Ahmed</span>
+          <span class="user-role">Admin</span>
+        </div>
+      </div>
+    </header>
 
-  <app-table 
-    [data]="courseService.getCourses()()"
-    (onView)="viewCourse($event)"
-    (onEdit)="editCourse($event)"
-    (onDelete)="openDeleteModal($event)"
-    (onSort)="handleSort($event)">
-  </app-table>
+    <section class="content-body">
+      <div class="page-title-row">
+        <div>
+          <h1>Courses</h1>
+          <nav class="breadcrumb">Dashboard > <span>Courses</span></nav>
+        </div>
+        <button class="btn-add-course" (click)="navigateToAdd()">＋ Add Course</button>
+      </div>
+
+      <div class="filter-toolbar">
+        <select (change)="onCategoryFilter($event)">
+          <option value="All">All Categories</option>
+          <option value="Development">Development</option>
+          <option value="Design">Design</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Business">Business</option>
+        </select>
+        
+        <select [value]="courseService.statusFilter()" (change)="onFilterChange($event)">
+          <option value="All">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Draft">Draft</option>
+          <option value="Archived">Archived</option>
+        </select>
+
+        <div class="sort-wrapper">
+          <select (change)="onSortSelect($event)">
+            <option value="id-asc">Oldest First</option>
+            <option value="id-desc">Newest First</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <app-table 
+        [data]="courseService.getCourses()()"
+        (onView)="viewCourse($event)"
+        (onEdit)="editCourse($event)"
+        (onDelete)="openDeleteModal($event)"
+        (onSort)="handleSort($event)">
+      </app-table>
+    </section>
+  </main>
 
   <app-modal 
     [isOpen]="isModalOpen()"
