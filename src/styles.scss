@@ -1,23 +1,44 @@
+// :root {
+//   --color-primary: #011627;
+//   --color-secondary: #2ec4b6;
+//   --color-accent: #ff9f1c;
+//   --color-bg-main: #f4f6f8;
+//   --color-bg-card: #ffffff;
+//   --color-border: #eeeeee;
+//   --color-text-muted: #555555;
+//   --color-text-dark: #333333;
+
+//   --color-active-bg: #e8f5e9;
+//   --color-active-text: #2e7d32;
+//   --color-draft-bg: #fff3e0;
+//   --color-draft-text: #ef6c00;
+//   --color-archived-bg: #ffebee;
+//   --color-archived-text: #c62828;
+
+//   --color-btn-view-bg: #e3f2fd;
+//   --color-btn-view-text: #1565c0;
+//   --color-btn-edit-bg: #fff8e1;
+//   --color-btn-edit-text: #f9a825;
+//   --color-btn-cancel-bg: #e0e0e0;
+// }
+
+
+
 :root {
-  --color-primary: #011627;
-  --color-secondary: #2ec4b6;
-  --color-accent: #ff9f1c;
-  --color-bg-main: #f4f6f8;
-  --color-bg-card: #ffffff;
-  --color-border: #eeeeee;
-  --color-text-muted: #555555;
-  --color-text-dark: #333333;
-
-  --color-active-bg: #e8f5e9;
-  --color-active-text: #2e7d32;
-  --color-draft-bg: #fff3e0;
-  --color-draft-text: #ef6c00;
-  --color-archived-bg: #ffebee;
-  --color-archived-text: #c62828;
-
-  --color-btn-view-bg: #e3f2fd;
-  --color-btn-view-text: #1565c0;
-  --color-btn-edit-bg: #fff8e1;
-  --color-btn-edit-text: #f9a825;
-  --color-btn-cancel-bg: #e0e0e0;
+  --color-primary: #0f172a;      /* لون الـ Sidebar والخطوط الرئيسية */
+  --color-secondary: #4f46e5;    /* اللون الأزرق للأزرار والـ Active menu */
+  --color-accent: #f59e0b;       
+  --color-bg-main: #f8fafc;      /* لون الخلفية الرمادي الفاتح المريح */
+  --color-bg-card: #ffffff;      
+  --color-border: #e2e8f0;       
+  --color-text-muted: #64748b;   
+  --color-text-dark: #1e293b;    
+  
+  /* ألوان الحالات */
+  --color-active-bg: #dcfce7;
+  --color-active-text: #15803d;
+  --color-draft-bg: #fef3c7;
+  --color-draft-text: #b45309;
+  --color-archived-bg: #fee2e2;
+  --color-archived-text: #b91c1c;
 }

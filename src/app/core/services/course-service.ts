@@ -4,7 +4,7 @@ import { ToastService } from '../services/toast';
 
 @Injectable({ providedIn: 'root' })
 export class CourseService {
-  private STORAGE_KEY = 'dashboard_courses_v5'; 
+  private STORAGE_KEY = 'dashboard_courses_v6'; 
 
   private initialMockData: Course[] = [
     { 
@@ -43,9 +43,7 @@ export class CourseService {
       createDate: new Date('2025-11-05').toISOString(),
       createdAt: new Date('2025-11-05').toISOString() 
     },
-
-
-{ 
+    { 
       id: '4', 
       name: 'UI/UX Design Fundamentals', 
       instructor: 'Nour Kamel', 
@@ -68,18 +66,16 @@ export class CourseService {
       price: 39.99, 
       createDate: new Date('2026-04-12').toISOString(),
       createdAt: new Date('2026-04-12').toISOString() 
-    },
-
-
+    }
   ];
 
   private coursesSignal = signal<Course[]>(this.loadFromStorage());
 
   searchQuery = signal<string>('');
   statusFilter = signal<CourseFilter>('All');
-  
+  categoryFilter = signal<string>('All'); 
   sortKey = signal<keyof Course>('id'); 
-sortDirection = signal<'asc' | 'desc'>('asc'); 
+  sortDirection = signal<'asc' | 'desc'>('asc'); 
 
   constructor(private toastService: ToastService) {}
 
@@ -96,11 +92,23 @@ sortDirection = signal<'asc' | 'desc'>('asc');
       list = list.filter(c => c.status === status);
     }
 
+    // 3. الفلترة بالقسم (Category)
+    const category = this.categoryFilter();
+    if (category !== 'All') {
+      list = list.filter(c => c.category === category);
+    }
+
+    // 4. الترتيب التصاعدي والتنازلي
     const key = this.sortKey();
     const dir = this.sortDirection() === 'asc' ? 1 : -1;
     list.sort((a, b) => {
-      const aValue = a[key] ?? '';
-      const bValue = b[key] ?? '';
+      let aValue = a[key] ?? '';
+      let bValue = b[key] ?? '';
+
+      if (key === 'id') {
+        return (Number(aValue) - Number(bValue)) * dir;
+      }
+
       if (aValue < bValue) return -1 * dir;
       if (aValue > bValue) return 1 * dir;
       return 0;
@@ -117,11 +125,8 @@ sortDirection = signal<'asc' | 'desc'>('asc');
     return this.coursesSignal().find(c => c.id === id);
   }
 
- 
-
   addCourse(course: Omit<Course, 'id' | 'createDate' | 'createdAt'>) {
     const nowIsoString = new Date().toISOString();
-    
     const currentCourses = this.coursesSignal();
     
     let nextId = '1';
@@ -145,9 +150,6 @@ sortDirection = signal<'asc' | 'desc'>('asc');
     this.toastService.show('Course created successfully!', 'success');
   }
 
-
-
-
   updateCourse(id: string, updatedData: Partial<Course>) {
     this.coursesSignal.update(courses => {
       const updated = courses.map(c => c.id === id ? { ...c, ...updatedData } : c);
@@ -157,12 +159,18 @@ sortDirection = signal<'asc' | 'desc'>('asc');
     this.toastService.show('Course updated successfully!', 'success');
   }
 
-  // [3] الـ DELETE: الحذف وإعادة الحفظ
   deleteCourse(id: string) {
     this.coursesSignal.update(courses => {
-      const updated = courses.filter(c => c.id !== id);
-      this.saveToStorage(updated);
-      return updated;
+      // 1. فلترة القائمة وحذف الكورس المطلوب
+      const remainingCourses = courses.filter(c => c.id !== id);
+      
+      const reIndexedCourses = remainingCourses.map((course, index) => ({
+        ...course,
+        id: (index + 1).toString() 
+      }));
+
+      this.saveToStorage(reIndexedCourses);
+      return reIndexedCourses;
     });
     this.toastService.show('Course deleted successfully!', 'danger');
   }

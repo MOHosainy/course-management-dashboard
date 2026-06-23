@@ -1,12 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-import { CourseService } from '../../core/services/course-service';
 import { TableComponent } from '../../shared/components/tables/table-component/table-component';
 import { ModalComponent } from '../../shared/components/model/modal-component/modal-component';
-import { CourseFilter,Course } from '../../core/models/course';
-
+import { CourseFilter, Course } from '../../core/models/course';
+import { CourseService } from '../../core/services/course-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,13 +25,26 @@ export class DashboardComponent implements OnInit {
   }
 
   onSearch(event: Event) {
-    const val = (event.target as HTMLInputElement).value;
-    this.courseService.searchQuery.set(val);
+    this.courseService.searchQuery.set((event.target as HTMLInputElement).value);
   }
 
   onFilterChange(event: Event) {
-    const val = (event.target as HTMLSelectElement).value as CourseFilter;
-    this.courseService.statusFilter.set(val);
+    this.courseService.statusFilter.set((event.target as HTMLSelectElement).value as CourseFilter);
+  }
+
+
+onCategoryFilter(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.courseService.categoryFilter.set(value); 
+  }
+
+
+
+
+  onSortSelect(event: Event) {
+    const [key, direction] = (event.target as HTMLSelectElement).value.split('-');
+    this.courseService.sortKey.set(key as keyof Course);
+    this.courseService.sortDirection.set(direction as 'asc' | 'desc');
   }
 
   handleSort(key: keyof Course) {
@@ -52,9 +63,8 @@ export class DashboardComponent implements OnInit {
   }
 
   confirmDelete() {
-    const id = this.courseIdToDelete();
-    if (id) {
-      this.courseService.deleteCourse(id);
+    if (this.courseIdToDelete()) {
+      this.courseService.deleteCourse(this.courseIdToDelete()!);
     }
     this.closeModal();
   }
