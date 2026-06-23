@@ -1,0 +1,7 @@
+.dashboard-container { padding: 30px; max-width: 1200px; margin: 0 auto; font-family: sans-serif; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+h1 { color: var(--color-primary); margin: 0; }
+.btn-add { background: var(--color-secondary); color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+.toolbar { display: flex; gap: 15px; margin-bottom: 20px; }
+.toolbar input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+.toolbar select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: var(--color-bg-card); width: 150px; }

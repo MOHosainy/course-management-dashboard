@@ -1,1 +1,6 @@
-<!-- <p>toast works!</p> -->
+@if (toastService.toast(); as t) {
+  <div [class]="'toast-box ' + t.type">
+    <span>{{ t.message }}</span>
+    <button (click)="toastService.clear()">&times;</button>
+  </div>
+}

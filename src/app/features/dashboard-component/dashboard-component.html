@@ -1,1 +1,37 @@
-<!-- <p>dashboard-component works!</p> -->
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Course Management Dashboard</h1>
+    <button class="btn-add" (click)="navigateToAdd()">+ Add New Course</button>
+  </div>
+
+  <div class="toolbar">
+    <input 
+      type="text" 
+      [value]="courseService.searchQuery()" 
+      placeholder="Search by name or instructor..." 
+      (input)="onSearch($event)" />
+    
+    <select [value]="courseService.statusFilter()" (change)="onFilterChange($event)">
+      <option value="All">All Statuses</option>
+      <option value="Active">Active</option>
+      <option value="Draft">Draft</option>
+      <option value="Archived">Archived</option>
+    </select>
+  </div>
+
+  <app-table 
+    [data]="courseService.getCourses()()"
+    (onView)="viewCourse($event)"
+    (onEdit)="editCourse($event)"
+    (onDelete)="openDeleteModal($event)"
+    (onSort)="handleSort($event)">
+  </app-table>
+
+  <app-modal 
+    [isOpen]="isModalOpen()"
+    title="Confirm Deletion"
+    message="Are you sure you want to delete this course? This action cannot be undone."
+    (onConfirm)="confirmDelete()"
+    (onCancel)="closeModal()">
+  </app-modal>
+</div>

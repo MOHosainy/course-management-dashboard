@@ -1,1 +1,31 @@
-<!-- <p>course-detail-component works!</p> -->
+@if (course(); as c) {
+  <div class="detail-container">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2>{{ c.name }}</h2>
+          <small class="id-badge">ID: {{ c.id }}</small>
+        </div>
+        <span [class]="'badge ' + c.status.toLowerCase()">{{ c.status }}</span>
+      </div>
+      <hr />
+      <div class="card-body">
+        <div class="info-grid">
+          <p><strong>Category:</strong> <span class="tag">{{ c.category || 'Unassigned' }}</span></p>
+          <p><strong>Price:</strong> <span class="price-txt">{{ c.price | currency:'USD' }}</span></p>
+          <p><strong>Instructor:</strong> {{ c.instructor }}</p>
+          <p><strong>Duration:</strong> {{ c.duration }}</p>
+          <p><strong>Created At:</strong> {{ (c.createDate || c.createdAt) | date:'medium' }}</p>
+        </div>
+        <div class="desc-box">
+          <strong>Description:</strong>
+          <p>{{ c.description }}</p>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-back" routerLink="/">← Back Dashboard</button>
+        <button class="btn-edit" (click)="goToEdit(c.id)">✏️ Edit Course</button>
+      </div>
+    </div>
+  </div>
+}

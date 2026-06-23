@@ -1,1 +1,12 @@
-<!-- <p>modal-component works!</p> -->
+@if (isOpen) {
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h3>{{ title }}</h3>
+      <p>{{ message }}</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" (click)="onCancel.emit()">Cancel</button>
+        <button class="btn btn-danger" (click)="onConfirm.emit()">Confirm</button>
+      </div>
+    </div>
+  </div>
+}

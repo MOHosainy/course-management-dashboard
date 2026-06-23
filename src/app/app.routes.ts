@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-// import { CourseService } from './core/services/course'
 import { CourseService } from './core/services/course-service';
 
 export const routes: Routes = [
@@ -16,7 +15,6 @@ export const routes: Routes = [
   {
     path: 'courses/:id',
     loadComponent: () => import('./features/course-detail/course-detail-component/course-detail-component').then(m => m.CourseDetailComponent),
-    // 🛡️ الـ Route Guard هنا: بيمنع الدخول لو الـ ID مش حقيقي في الـ Service
     canActivate: [(route) => {
       const id = route.paramMap.get('id');
       const hasCourse = !!inject(CourseService).getCourseById(id || '');
@@ -26,7 +24,6 @@ export const routes: Routes = [
   {
     path: 'courses/:id/edit',
     loadComponent: () => import('./features/course-form/course-form-component/course-form-component').then(m => m.CourseFormComponent),
-    // 🛡️ نفس الـ Guard لحماية صفحة التعديل
     canActivate: [(route) => {
       const id = route.paramMap.get('id');
       const hasCourse = !!inject(CourseService).getCourseById(id || '');

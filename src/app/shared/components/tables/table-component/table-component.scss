@@ -1,0 +1,19 @@
+.table-container { width: 100%; overflow-x: auto; background: var(--color-bg-card); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+table { width: 100%; border-collapse: collapse; text-align: left; font-family: sans-serif; }
+th, td { padding: 14px 20px; border-bottom: 1px solid var(--color-border); white-space: nowrap; }
+th { background: #f8f9fa; cursor: pointer; user-select: none; color: var(--color-text-muted); }
+th:hover { background: #f1f3f5; }
+.id-txt { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #666; }
+.category-txt { background: #e3f2fd; color: #0d47a1; padding: 4px 8px; border-radius: 4px; font-size: 13px; font-weight: 500; }
+.badge { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+.active { background: var(--color-active-bg); color: var(--color-active-text); }
+.draft { background: var(--color-draft-bg); color: var(--color-draft-text); }
+.archived { background: var(--color-archived-bg); color: var(--color-archived-text); }
+.actions { display: flex; gap: 8px; }
+.actions button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;}
+.btn-view { background: var(--color-btn-view-bg); color: var(--color-btn-view-text); }
+.btn-edit { background: var(--color-btn-edit-bg); color: var(--color-btn-edit-text); }
+.btn-delete { background: var(--color-archived-bg); color: var(--color-archived-text); }
+.pagination { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 15px; background: #f8f9fa; border-top: 1px solid var(--color-border); }
+.pagination button { padding: 6px 12px; border: 1px solid #ccc; background: var(--color-bg-card); cursor: pointer; border-radius: 4px; }
+.pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
