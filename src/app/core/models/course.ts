@@ -1,12 +1,15 @@
-// export interface Course {}
 export interface Course {
   id: string;
   name: string;
   instructor: string;
-  duration: string; // e.g., '40 hours'
+  duration: string; 
   status: 'Active' | 'Draft' | 'Archived';
   description: string;
-  createdAt: Date;
+  // createdAt: Date;
+  category: string;    
+  price: number;       
+  createDate: string;  
+  createdAt?: string;
 }
 
 export type CourseFilter = 'All' | 'Active' | 'Draft' | 'Archived';

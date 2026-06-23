@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #011627;
+  --color-secondary: #2ec4b6;
+  --color-accent: #ff9f1c;
+  --color-bg-main: #f4f6f8;
+  --color-bg-card: #ffffff;
+  --color-border: #eeeeee;
+  --color-text-muted: #555555;
+  --color-text-dark: #333333;
+
+  --color-active-bg: #e8f5e9;
+  --color-active-text: #2e7d32;
+  --color-draft-bg: #fff3e0;
+  --color-draft-text: #ef6c00;
+  --color-archived-bg: #ffebee;
+  --color-archived-text: #c62828;
+
+  --color-btn-view-bg: #e3f2fd;
+  --color-btn-view-text: #1565c0;
+  --color-btn-edit-bg: #fff8e1;
+  --color-btn-edit-text: #f9a825;
+  --color-btn-cancel-bg: #e0e0e0;
+}
